@@ -9,7 +9,7 @@ using EcommerceApi.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // ==========================
-// CONFIGURACIÓN DE SERVICIOS
+// CONFIGURACIÓN DE SERVICIOS   
 // ==========================
 
 // 1 Base de datos
