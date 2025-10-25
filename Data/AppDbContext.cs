@@ -15,17 +15,28 @@ namespace EcommerceApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Restricción: un usuario puede tener solo un carrito
+            // Relación: un usuario puede tener múltiples CartItems (su "carrito")
             modelBuilder.Entity<CartItem>()
                 .HasOne(ci => ci.User)
                 .WithMany(u => u.CartItems)
-                .HasForeignKey(ci => ci.UserId);
+                .HasForeignKey(ci => ci.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
+            // Relación: un CartItem siempre referencia a un Product
+            modelBuilder.Entity<CartItem>()
+                .HasOne(ci => ci.Product)
+                .WithMany()
+                .HasForeignKey(ci => ci.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Relación: un producto pertenece a una empresa
             modelBuilder.Entity<Product>()
                 .HasOne(p => p.Company)
                 .WithMany(c => c.Products)
-                .HasForeignKey(p => p.CompanyId);
+                .HasForeignKey(p => p.CompanyId)
+                .OnDelete(DeleteBehavior.Cascade);
 
+            // Relación: un usuario puede pertenecer a una empresa (opcional)
             modelBuilder.Entity<User>()
                 .HasOne(u => u.Company)
                 .WithMany(c => c.Users)
