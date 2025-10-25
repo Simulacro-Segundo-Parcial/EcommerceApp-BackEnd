@@ -16,6 +16,7 @@ namespace EcommerceApi.Models
 
         [Required]
         [Range(0.0, double.MaxValue)]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
         [Required]
