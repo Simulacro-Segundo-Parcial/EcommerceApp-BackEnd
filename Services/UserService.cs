@@ -71,7 +71,7 @@ namespace EcommerceApi.Services
         }
 
         // ==========================
-        // 🔹 Obtener todos
+        // Obtener todos
         // ==========================
         public async Task<IEnumerable<UserResponseDto>> GetAllAsync()
         {
@@ -80,7 +80,7 @@ namespace EcommerceApi.Services
         }
 
         // ==========================
-        // 🔹 Actualizar
+        //  Actualizar
         // ==========================
         public async Task<UserResponseDto?> UpdateAsync(int id, UpdateUserDto dto)
         {
