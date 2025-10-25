@@ -10,10 +10,12 @@ namespace EcommerceApi.Models
         public int Id { get; set; }
 
         [Required, EmailAddress]
+        [MaxLength(500)]
         public string Email { get; set; } = null!;
 
         [Required]
         [JsonIgnore]
+        [MaxLength(500)]
         public string PasswordHash { get; set; } = null!;
 
         [Required]

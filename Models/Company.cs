@@ -21,7 +21,8 @@ namespace EcommerceApi.Models
 
         [MaxLength(300)]
         public string? Address { get; set; }
-
+        
+        [MaxLength(5000)]
         public string? LogoUrl { get; set; }
 
         [JsonIgnore]

@@ -23,7 +23,8 @@ namespace EcommerceApi.Models
 
         [Required]
         public ProductStatus Status { get; set; } = ProductStatus.Draft;
-
+        
+        [MaxLength(5000)]
         public string? ImageUrl { get; set; }
 
         // Relaciones
