@@ -1,5 +1,5 @@
 # =====================================
-# DOTNET BUILD OUTPUT (bin / obj)
+# DOTNET BUILD OUTPUT
 # =====================================
 bin/
 obj/
@@ -16,19 +16,11 @@ obj/
 *.sln.docstates
 
 # =====================================
-# VISUAL STUDIO CODE / RIDER / IDEs
+# VISUAL STUDIO / VS CODE / RIDER
 # =====================================
 .vscode/
-.idea/                          # JetBrains Rider
-.idea/.idea_modules/
-.idea/.idea.*
-.idea/modules.xml
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/dictionaries/
-.idea/.name
+.idea/
 *.iml
-*.sln.iml
 
 # =====================================
 # CONFIGURACIONES LOCALES Y SECRETOS
@@ -36,9 +28,10 @@ obj/
 appsettings.Development.json
 appsettings.Local.json
 secrets.json
+*.env
 
 # =====================================
-# MIGRACIONES (comentá esta línea si querés versionarlas)
+# MIGRACIONES (descomenta si NO querés versionarlas)
 # =====================================
 # Migrations/
 
@@ -55,7 +48,7 @@ secrets.json
 *.db-wal
 
 # =====================================
-# COVERAGE / TEST
+# TEST / COVERAGE
 # =====================================
 TestResults/
 coverage/
@@ -72,13 +65,9 @@ Thumbs.db
 desktop.ini
 
 # =====================================
-# PAQUETES
+# PAQUETES Y DEPENDENCIAS
 # =====================================
 *.nupkg
 *.snupkg
 packages/
-
-# =====================================
-# RIDER RUN CONFIGURATIONS (opcional)
-# =====================================
-.idea/runConfigurations/
+node_modules/
