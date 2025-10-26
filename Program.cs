@@ -12,15 +12,15 @@ var builder = WebApplication.CreateBuilder(args);
 // CONFIGURACIÓN DE SERVICIOS   
 // ==========================
 
-// 1 Base de datos
+// 1. Base de datos
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// 2 Servicios personalizados
+// 2. Servicios personalizados
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
-// 3 Autenticación JWT
+// 3. Autenticación JWT
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -36,15 +36,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
             )
         };
+
+        // Permite que Swagger funcione con HTTPS en local y Azure sin conflictos
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
     });
 
-// 4 Autorización
+// 4. Autorización
 builder.Services.AddAuthorization();
 
-// 5 Controladores
+// 5. Controladores
 builder.Services.AddControllers();
 
-// 6 Swagger
+// 6. Swagger (documentación interactiva)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -55,6 +59,7 @@ builder.Services.AddSwaggerGen(options =>
         Description = "API para gestión de usuarios, empresas, productos y carrito de compras"
     });
 
+    // Soporte para autenticación con Bearer Token (JWT)
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -81,7 +86,7 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-// 7 CORS
+// 7. CORS (para permitir Flutter y Swagger)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -95,19 +100,22 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // ==========================
-//  CONFIGURACIÓN DEL PIPELINE
+// CONFIGURACIÓN DEL PIPELINE
 // ==========================
 
-if (app.Environment.IsDevelopment())
+// Habilita Swagger SIEMPRE (en local y producción)
+app.UseSwagger();
+app.UseSwaggerUI(options =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Ecommerce API v1");
+    options.RoutePrefix = string.Empty; // Para que Swagger se muestre en la raíz "/"
+});
 
 app.UseHttpsRedirection();
 
-app.UseAuthentication();
 app.UseCors("AllowAll");
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
