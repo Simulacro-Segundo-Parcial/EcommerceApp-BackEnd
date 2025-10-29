@@ -9,12 +9,12 @@
 
     public enum CompanyStatus
     {
-        PendingVerification = 0,
+        PendingVerification = 0,    
         Verified = 1,
         Rejected = 2
     }
 
-    public enum ProductStatus
+    public enum ProductStatus   
     {
         Draft = 0,
         Published = 1
